@@ -1,6 +1,28 @@
 version: "3.9"
 
 services:
+  web:
+    build: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      REDIS_URL: ${REDIS_URL}
+
   db:
     image: postgres:latest
     container_name: postgres_db
@@ -18,31 +40,11 @@ services:
     image: redis:latest
     container_name: redis_cache
     restart: always
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
-
-  web:
-    build: .
-    container_name: django_app
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-      - redis
-    environment:
-      SECRET_KEY: ${SECRET_KEY}
-      DEBUG: ${DEBUG}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PORT: ${POSTGRES_PORT}
-      REDIS_URL: ${REDIS_URL}
+    # Django can access internally, no need to expose 6379 to host
+    # ports:
+    #   - "6379:6379"
 
 volumes:
   postgres_data:
