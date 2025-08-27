@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+*.log
+*.pot
+*.mo
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Django
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+*.log
+
+# Pytest / Coverage
+.coverage
+htmlcov/
+.tox/
+pytest_cache/
+.cache/
+
+# VS Code / Editors
+.vscode/
+.idea/
+*.swp
+
+# Docker
+*.pid
+*.seed
+*.bak
+*.tmp
+
+# Env files
+.env
+.env.*
+
+# Migrations (optional: keep if you want migrations tracked)
+# **/migrations/*.py
+# !**/migrations/__init**
