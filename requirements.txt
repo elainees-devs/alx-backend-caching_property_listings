@@ -1,0 +1,6 @@
+Django==3.2.12
+psycopg2-binary>=2.9
+django-redis>=5.2.0
+python-dotenv>=1.0.0
+djangorestframework>=3.14.0   # For building APIs
+django-cors-headers>=4.3.0    # For CORS support
